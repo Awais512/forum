@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Discussion;
+use App\Http\Requests\replies\CreateReplyRequest;
 use Illuminate\Http\Request;
 
 class RepliesController extends Controller
@@ -12,9 +14,7 @@ class RepliesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
-    }
+    { }
 
     /**
      * Show the form for creating a new resource.
@@ -32,9 +32,15 @@ class RepliesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateReplyRequest $request, Discussion $discussion)
     {
-        //
+        auth()->user()->replies()->create([
+            'content' => $request->content,
+            'discussion_id' => $discussion->id
+        ]);
+
+        session()->flash('success', 'You have Replied Successfully');
+        return redirect()->back();
     }
 
     /**
