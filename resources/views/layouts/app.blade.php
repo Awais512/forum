@@ -73,46 +73,44 @@
             </div>
         </nav>
 
-     @auth
-     <main class="container py-4">
-        <div class="row">
-            <div class="col-md-4">
-            <a href="{{ route('discussions.create') }}" style="width:100%" class="btn btn-info my-2">Add Discussion</a>
-              <div class="card">
-                  <div class="card-header">
-                      Channels
-                  </div>
-                  <div class="card-body">
-                    <ul class="list-group">
-                        @foreach ($channels as $channel)
-                        <li class="list-group-item">
-                            {{$channel->name}}
-                        </li>
-                        @endforeach
-                    </ul>
-                  </div>
-              </div>
-            </div>
+       @if (!in_array(request()->path(), ['login','register','password/email', 'password/reset']))
+       <main class="container py-4">
+            <div class="row">
+                <div class="col-md-4">
+                @auth
+                <a href="{{ route('discussions.create') }}" style="width:100%" class="btn btn-info my-2">Add Discussion</a>
 
-            <div class="col-md-8">
-                    @yield('content')
-            </div>
-        </div>
-        
-    </main>
+                @else 
+                <a href="{{ route('login') }}" style="width:100%" class="btn btn-info my-2">Sign in to Discussion</a>
+                @endauth
+                  <div class="card">
+                      <div class="card-header">
+                          Channels
+                      </div>
+                      <div class="card-body">
+                        <ul class="list-group">
+                            @foreach ($channels as $channel)
+                            <li class="list-group-item">
+                                {{$channel->name}}
+                            </li>
+                            @endforeach
+                        </ul>
+                      </div>
+                  </div>
+                </div>
     
-     @else
-
-     <main class="py-4">
-       <div class="row">
-            <div class="col-md-8">
-                @yield('content')
+                <div class="col-md-8">
+                        @yield('content')
+                </div>
             </div>
-       </div>
+            
     </main>
 
-
-     @endauth
+    @else 
+    <main class="py-4">
+        @yield('content')
+    </main>
+    @endif
     </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
