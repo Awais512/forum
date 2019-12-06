@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+{{-- <a href="{{route('discussions.index')}}" class="btn btn-info mb-2">Back to Discussions</a> --}}
 <div class="card">
     @include('partials.discussion-header')
     
@@ -12,6 +12,29 @@
            <hr>
 
            {!! $discussion->content !!}
+
+           @if ($discussion->bestReply)
+          <div class="card bg-success my-5" style="color:#fff">
+              <div class="card-header">
+                  <div class="d-flex justify-content-between">
+                       <div>
+                            <img width="40px" height="40px" style="border-radius:50px" src="{{Gravatar::src($discussion->bestReply->user->email)}}" alt="">
+                        <strong>{{$discussion->bestReply->user->name}}</strong>
+                       </div>
+
+                       <div>
+                            <strong>Best Reply</strong>
+                        </div>
+                  </div>
+              
+              </div>
+             
+              <div class="card-body">
+                {!! $discussion->bestReply->content !!}
+              </div>
+          </div>
+            @endif
+   
         </div>
 </div>
 
@@ -22,14 +45,21 @@
                 <div>
                 <img style="border-radius:50" width="40px" height="40px" src="{{ Gravatar::src($reply->user->email) }}" alt="">
                 <span>{{$reply->user->name}}</span>
-                </div>
-            </div>
+                    <div>
+                        @if (auth()->user()->id === $discussion->user_id)
+                        <form action="{{route('discussions.best-reply', ['discussion'=> $discussion->slug, 'reply'=> $reply->id])}}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-primary">Mark as Best Reply</button>
+                        </form>
+                        @endif
+                    </div>
+                </div>  
         </div>
         <div class="card-body">
             {!! $reply->content !!}
-        
         </div>
     </div>
+</div>
 @endforeach
 {{$discussion->replies()->paginate(3)->links()}}
 
