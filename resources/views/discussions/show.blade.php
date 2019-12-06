@@ -38,7 +38,7 @@
         </div>
 </div>
 
-@foreach ($discussion->replies()->paginate(3) as $reply)
+@foreach ($discussion->replies()->latest()->paginate(3) as $reply)
     <div class="card my-5">
         <div class="card-header">
             <div class="d-flex justify-content-between">
