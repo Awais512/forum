@@ -46,12 +46,14 @@
                 <img style="border-radius:50" width="40px" height="40px" src="{{ Gravatar::src($reply->user->email) }}" alt="">
                 <span>{{$reply->user->name}}</span>
                     <div>
-                        @if (auth()->user()->id === $discussion->user_id)
-                        <form action="{{route('discussions.best-reply', ['discussion'=> $discussion->slug, 'reply'=> $reply->id])}}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-sm btn-primary">Mark as Best Reply</button>
-                        </form>
-                        @endif
+                       @auth
+                       @if (auth()->user()->id === $discussion->user_id)
+                       <form action="{{route('discussions.best-reply', ['discussion'=> $discussion->slug, 'reply'=> $reply->id])}}" method="POST">
+                           @csrf
+                           <button type="submit" class="btn btn-sm btn-primary mt-4">Mark as Best Reply</button>
+                       </form>
+                       @endif
+                       @endauth
                     </div>
                 </div>  
         </div>

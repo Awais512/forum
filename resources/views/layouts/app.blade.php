@@ -35,14 +35,17 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
-                        <a href="{{route('users.notifications')}}" class="nav-link">
+                       
                             <li class="nav-item">
+                                <a href="{{route('users.notifications')}}" class="nav-link">
                                     <span class="badge badge-info">
                                             {{auth()->user()->unreadNotifications->count()}}
                                             Unread Notifications
                                     </span>
-                                </li>
-                       </a>
+                                </a>
+                            </li>
+                       
+                        <li class="nav-item"><a href="{{route('discussions.index')}}" class="nav-link">Discussions</a></li>
                         @endauth
                     </ul>
 
