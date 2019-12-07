@@ -39,4 +39,15 @@ class Discussion extends Model
 
         $reply->user->notify(new ReplyMarkedAsBest($reply->discussion));
     }
+
+    public function scopeFilterByChannels($builder)
+    {
+        $channel = Channel::where('slug', request()->query('channel'))->first();
+
+        if ($channel) {
+            return $builder->where('channel_id', $channel->id);
+        }
+
+        return $builder;
+    }
 }
