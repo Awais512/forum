@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ReplyMarkedAsBest extends Notification
+class ReplyMarkedAsBest extends Notification implements ShouldQueue
 {
     use Queueable;
     public $discussion;

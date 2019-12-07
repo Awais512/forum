@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewReply extends Notification
+class NewReply extends Notification implements ShouldQueue
 {
     use Queueable;
     public $discussion;
