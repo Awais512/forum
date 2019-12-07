@@ -35,7 +35,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         @auth
-                       <a href="" class="nav-link">
+                        <a href="{{route('users.notifications')}}" class="nav-link">
                             <li class="nav-item">
                                     <span class="badge badge-info">
                                             {{auth()->user()->unreadNotifications->count()}}
